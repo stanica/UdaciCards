@@ -1,6 +1,6 @@
 import React from 'react';
 import { getDecks } from '../utils/db';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Animated } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { gray, white, purple } from '../utils/colors';
 import Deck from '../components/Deck';
@@ -8,7 +8,8 @@ import Deck from '../components/Deck';
 
 class Decks extends React.Component {
   state = {
-    decks: {}
+    decks: {},
+    bounceValue: new Animated.Value(1)
   }
 
   getAllDecks() {
@@ -27,15 +28,21 @@ class Decks extends React.Component {
   }
 
   onPress(item) {
+    Animated.sequence([
+      Animated.timing(this.state.bounceValue, { duration: 200, toValue: 1.04,}),
+      Animated.spring(this.state.bounceValue, { toValue: 1, friction: 4})
+    ]).start();
     this.props.navigation.navigate('Deck', {item});
   }
 
   renderItem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => this.onPress(item)} style={styles.card}>
-        <Text style={{fontSize:25}}>{this.state.decks[item].title}</Text>
-        <Text style={{fontSize:16, color: gray}}>{this.state.decks[item].questions.length} cards</Text>
-      </TouchableOpacity>
+      <Animated.View style={{transform: [{scale: this.state.bounceValue}]}}>
+        <TouchableOpacity onPress={() => this.onPress(item)} style={[styles.card]}>
+          <Text style={{fontSize:25}}>{this.state.decks[item].title}</Text>
+          <Text style={{fontSize:16, color: gray}}>{this.state.decks[item].questions.length} cards</Text>
+        </TouchableOpacity>
+      </Animated.View>
     )
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { white, purple, black, red, green } from '../utils/colors';
+import { white, purple, black, red, green, gray } from '../utils/colors';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -9,10 +9,6 @@ export default class Quiz extends React.Component {
     index: 0,
     viewing: 'question',
     correct: 0
-  }
-
-  componentDidMount() {
-    console.log(this.props.navigation.state.params);
   }
 
   render() {
@@ -51,6 +47,14 @@ export default class Quiz extends React.Component {
           <View>
             <Text style={styles.mainText}>{correct}/{cards.length} Correct</Text>
             <Text style={styles.subText}>{((correct/cards.length)*100).toFixed(2)}%</Text>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => this.setState({index: 0, viewing:'question', correct:0})} style={[styles.btn, {backgroundColor: green}]}>
+              <Text style={styles.btnText}>Restart Quiz</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={[styles.btn, {backgroundColor:gray}]}>
+              <Text style={styles.btnText}>Back to Deck</Text>
+            </TouchableOpacity>
           </View>
         </View>
       )

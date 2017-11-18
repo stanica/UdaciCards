@@ -10,6 +10,7 @@ import { white, purple } from './utils/colors';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { getDecks } from './utils/db';
+import { setLocalNotification } from './utils/helpers';
 
 function UdaciStatusBar ({ backgroundColor, ...props}) {
   return (
@@ -100,6 +101,11 @@ export default class App extends React.Component {
   state = {
     decks: ''
   }
+
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   getAllDecks() {
     getDecks().then((results) => {
       const decks = JSON.parse(results);
