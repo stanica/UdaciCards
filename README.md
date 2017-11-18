@@ -1,6 +1,6 @@
 # UdaciCards Project
 
-This repo contains the UdaciCards application created for the Udacity React Nanodegree.
+This repo contains the UdaciCards application created for the Udacity React Nanodegree. It has only been tested in the iOS simulator and on iOS devices.
 
 ## Project Setup
 
