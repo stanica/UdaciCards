@@ -50,7 +50,7 @@ class Decks extends React.Component {
     return (
       <View style={styles.container}>
         <FlatList
-          data = {Object.keys(this.state.decks)}
+          data = {this.state.decks ? Object.keys(this.state.decks) : {}}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => index}
         >
